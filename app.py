@@ -10,10 +10,11 @@ df = pd.read_excel(file_path)
 col_q = df.columns[16]  # 17th column
 col_b = df.columns[1]   # Column B
 col_c = df.columns[2]   # Column C
+col_h = df.columns[7]   # Column H
 
 # ---------- Clean and Process Data ----------
 df['Date'] = pd.to_datetime(df['Date'], errors='coerce')
-df = df.dropna(subset=['Date', col_q, col_b, col_c])
+df = df.dropna(subset=['Date', col_q, col_b, col_c, col_h])
 df = df.sort_values('Date')
 
 # Scale Column Q to percentage
@@ -66,11 +67,11 @@ st.title("📊 COT Report Visualization Dashboard")
 st.markdown("Select a tab below to view different time series graphs from the Commitments of Trade Report.")
 
 # ---------- Tabs ----------
-tab1, tab2, tab3 = st.tabs(["📈 Open Interest %", "🟩 Commercial Long", "🟥 Commercial Short"])
+tab1, tab2, tab3, tab4 = st.tabs(["📈 OI Stochastic Index %", "🟩 Commercial Long", "🟥 Commercial Short", " Open Interest"])
 
 with tab1:
-    st.subheader(f"{col_q} as Percentage")
-    fig1 = create_line_chart(df['Date'], df[col_q], f"{col_q} (%)", f"{col_q} Over Time", y_format=".1f", y_dtick=5)
+    st.subheader(f"Open Interest Stochastic Index as Percentage")
+    fig1 = create_line_chart(df['Date'], df[col_q], f"Open Interest Stochastic Index as Percentage", f"Open Interest Stochastic Index as Percentage Over Time", y_format=".1f", y_dtick=5)
     st.plotly_chart(fig1, use_container_width=True)
 
 with tab2:
@@ -82,6 +83,11 @@ with tab3:
     st.subheader("Commercial Short (Column C)")
     fig3 = create_line_chart(df['Date'], df[col_c], "Commercial Short", "Commercial Short Over Time", y_format=".0f", y_dtick=25000)
     st.plotly_chart(fig3, use_container_width=True)
+
+with tab4:
+    st.subheader("Open Interest (Column H)")
+    fig4 = create_line_chart(df['Date'], df[col_h], "Open Interest", "Open Interest Over Time", y_format=".0f", y_dtick=25000)
+    st.plotly_chart(fig4, use_container_width=True)
 
 # Optional: Footer or credits
 st.markdown("---")
