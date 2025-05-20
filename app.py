@@ -67,7 +67,7 @@ st.title("📊 COT Report Visualization Dashboard")
 st.markdown("Select a tab below to view different time series graphs from the Commitments of Trade Report.")
 
 # ---------- Tabs ----------
-tab1, tab2, tab3, tab4 = st.tabs(["📈 OI Stochastic Index %", "🟩 Commercial Long", "🟥 Commercial Short", " Open Interest"])
+tab1, tab2, tab3, tab4 = st.tabs(["📈 OI Stochastic Index %", "🟩 Commercial Long", "🟥 Commercial Short", "📊 Open Interest"])
 
 with tab1:
     st.subheader(f"Open Interest Stochastic Index as Percentage")
